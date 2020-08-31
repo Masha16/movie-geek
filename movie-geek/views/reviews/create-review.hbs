@@ -1,0 +1,23 @@
+<h2>Create a new review</h2>
+
+<form action="/reviews/create" method="post">
+ 
+  <label for="title-input">Title of the review</label> <br>
+  <input type="text" placeholder="Title of review" name="title"> </input> <br>
+ 
+  <label for="movieName-input">Name of the movie</label><br>
+  <input type="text" placeholder="Name of the movie" name="movieName"></input> <br>
+ 
+  <label for="director-input">Director</label><br>
+  <input name="director" placeholder="Director"> </input>  <br>
+
+  <label for="review-input">Review</label><br>
+  <input name="review" type="text" placeholder="Write your review here..."> </input> <br>
+
+    <label for="ranking-input">Estimate the movie from 1 to 10</label><br>
+  <input name=" ranking" type="number"> </input> <br>
+
+ 
+  <button type="submit">Create new review</button>
+
+  </form>
