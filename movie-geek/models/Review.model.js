@@ -9,7 +9,8 @@ var Schema = mongoose.Schema,
             movieName: {type: String}, 
             director: {type: String}, 
             review: {type: String}, 
-            ranking: {type: Number}
+            ranking: {type: String}, 
+            user: [{ type: Schema.Types.ObjectId, ref: 'User' }]
         }, 
         {
             timestamps: true

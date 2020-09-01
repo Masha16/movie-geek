@@ -1,0 +1,17 @@
+<h1>All reviews are here</h1>
+<br>
+<br>
+
+{{#each reviews}}
+<div>
+ <h3>{{title}}</h3>
+</div>
+<div>
+<p>Movie reviewed: {{movieName}}</p>
+<p>Director: {{director}} </p>
+<p>Ranking: {{ranking}}/10 </p>
+{{this.user.username}} "{{review}}"
+</div>
+<hr>
+{{/each}}
+
