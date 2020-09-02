@@ -1,6 +1,10 @@
 {{#if userInSession}}
   <h2>Welcome, {{userInSession.username }}!</h2>
   <p>This is your profile page</p>
+  <p>Here are all your reviews:</p>
+{{!-- {{#each review}}
+  <p>{{title}} </p>
+  {{/each}} --}}
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}

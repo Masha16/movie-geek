@@ -1,14 +1,36 @@
 const express = require('express');
 const router  = express.Router();
 const User = require('../models/User.model')
+const Review = require('../models/Review.model')
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
+const passport = require('passport');
 
 
 // GET route to display a sign up page
 router.get('/signup', (req, res) => res.render('auth/signup'));
 
-router.get('/userProfile', (req, res) => res.render('user-profile', { userInSession: req.session.currentUser }));
+// GET route for the private user page
+
+// router.get('/userProfile', (req, res) => res.render('user-profile', { userInSession: req.session.currentUser }));
+
+router.get('/userProfile', (req, res) => {
+  if (!req.user) {
+    res.redirect('/login'); // not logged-in
+    return;
+  }
+const {_id} = req.params;
+User.findById({_id})
+.populate('Review')
+.then ((allReviews) => {
+  res.render('user-profile', { userInSession: req.session.currentUser, reviews: allReviews})}
+)
+.catch(
+  error => console.log(`Error while getting a review for edit: ${error}`)
+)
+});
+
+
 // POST route to create a user in the database
 
 router.post('/signup', (req, res, next) => {
@@ -56,8 +78,7 @@ router.post('/signup', (req, res, next) => {
       });
   });
 
-// GET to display user profile
-// router.get('/userProfile', (req, res) => res.render('user-profile', { userInSession: req.session.currentUser }));
+
 
 //GET to login page
 
@@ -65,35 +86,67 @@ router.get('/login', (req, res) => res.render('auth/login'));
 
 //POST to login
 
+
 router.post('/login', (req, res, next) => {
   console.log('SESSION =====> ', req.session);
-  const { email, password } = req.body;
+  const { username, password } = req.body;
+  passport.authenticate('local', (err, user, failureDetails) => {
+    if (err) {
+      // Something went wrong authenticating user
+      return next(err);
+    }
  
-  if (email === '' || password === '') {
-    res.render('auth/login', {
-      errorMessage: 'Please enter both, email and password to login.'
-    });
-    return;
-  }
+    if (!user) {
+      // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
+      res.render('auth/login', { errorMessage: 'Wrong password or username' });
+      return;
+    }
  
-  User.findOne({ email })
-    .then(user => {
-      if (!user) {
-        res.render('auth/login', { errorMessage: 'Email is not registered. Try with other email.' });
-        return;
-      } else if (bcryptjs.compareSync(password, user.passwordHash)) {
-        
-        res.render('user-profile', { user });
- 
-        req.session.currentUser = user;
-        res.redirect('/userProfile');
-      } else {
-        res.render('auth/login', { errorMessage: 'Incorrect password.' });
+    // save user in session: req.user
+    req.login(user, (err) => {
+      if (err) {
+        // Session save went bad
+        return next(err);
       }
-    })
-    .catch(error => next(error));
+ 
+      // All good, we are now logged in and `req.user` is now set
+      req.session.currentUser = user;
+      res.redirect('/userProfile');
+    });
+  })(req, res, next);
+
+ 
+  // if (username === '' || password === '') {
+  //   res.render('auth/login', {
+  //     errorMessage: 'Please enter both, email and password to login.'
+  //   });
+  //   return;
+  // }
+ 
+  // User.findOne({ username })
+  //   .then(user => {
+  //     if (!user) {
+  //       res.render('auth/login', { errorMessage: 'User is not registered. Try with other username.' });
+  //       return;
+  //     } else if (bcryptjs.compareSync(password, user.passwordHash)) {
+        
+  //       res.render('user-profile', { user });
+ 
+  //       req.session.currentUser = user;
+  //       res.redirect('/userProfile');
+  //     } else {
+  //       res.render('auth/login', { errorMessage: 'Incorrect password.' });
+  //     }
+  //   })
+  //   .catch(error => next(error));
 });
 
+// GET route for LOGOUT
+router.get('/logout', (req, res) => {
+  res.render('auth/logout')
+})
+
+// POST route for LOGOUT
 router.post('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');

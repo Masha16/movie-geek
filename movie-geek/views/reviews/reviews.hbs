@@ -10,7 +10,10 @@
 <p>Movie reviewed: {{movieName}}</p>
 <p>Director: {{director}} </p>
 <p>Ranking: {{ranking}}/10 </p>
-{{this.user.username}} "{{review}}"
+{{#each user}}
+{{username}}
+{{/each}}
+ "{{review}}"
 </div>
 <hr>
 {{/each}}

@@ -24,7 +24,7 @@ var userSchema = new Schema(
         required: [true, 'Password is required.']
                   }, 
 
-    // reviews=[{ type: Schema.Types.ObjectId, ref: 'Review' }]
+    review: [{ type: Schema.Types.ObjectId, ref: 'Review' }]
 
     }, 
     {
