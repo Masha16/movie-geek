@@ -14,7 +14,9 @@ router.get('/', function (req, res, next) {
 
 router.get('/reviews/create', function (req, res, next) {
   res.render('reviews/create-review');
-}); // POST create a review
+}); 
+
+// POST create a review
 
 router.post('/reviews/create', function (req, res, next) {
   var _req$body = req.body,
@@ -23,12 +25,14 @@ router.post('/reviews/create', function (req, res, next) {
       director = _req$body.director,
       review = _req$body.review,
       ranking = _req$body.ranking;
+      user = req.session.currentUser;
   Review.create({
     title: title,
     movieName: movieName,
     director: director,
     review: review,
-    ranking: ranking
+    ranking: ranking, 
+    user = user["_id"]
   }).then(function () {
     return res.redirect('/');
   })["catch"](function (error) {

@@ -1,11 +1,15 @@
-<div id="form">
-  <h2>Login</h2>
+<div id="signup">
+
+  <h1>Welcome to Movie Geek!</h1>
+
+<div class="signup-container">
   <form action="/login" method="POST">
-    <label for="username">Username</label>
-    <input type="username" name="username" placeholder="Your username"/>
+  <h2>Login </h2>
+    <label for="username"></label><br>
+    <input type="username" name="username" placeholder="Your username"/> <br>
  
-    <label for="password">Password</label>
-    <input type="password" name="password" placeholder="********"/>
+    <label for="password"></label><br>
+    <input type="password" name="password" placeholder="Your password"/> <br>
  
     <button type="submit">Login</button>
  
@@ -13,4 +17,5 @@
       <p class="error">{{errorMessage}}</p>
     {{/if}}
   </form>
+</div>
 </div>

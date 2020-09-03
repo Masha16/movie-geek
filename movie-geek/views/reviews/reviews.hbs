@@ -1,8 +1,17 @@
-<h1>All reviews are here</h1>
+  <nav id="nav-bar">
+    <div class="nav">
+    <a href="/reviews">All reviews</a>
+    <a href="/reviews/create" class="left">Create review</a>
+    <a href="/userProfile" class="left">My profile</a>
+    <a href="/logout" id="logout">Log out</a>
+    </div>
+  </nav>
 <br>
 <br>
 
+
 {{#each reviews}}
+<div class="review-container">
 <div>
  <h3>{{title}}</h3>
 </div>
@@ -15,6 +24,6 @@
 {{/each}}
  "{{review}}"
 </div>
-<hr>
+</div>
 {{/each}}
 

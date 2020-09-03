@@ -1,10 +1,33 @@
+  <nav id="nav-bar">
+    <div class="nav">
+    <a href="/reviews">All reviews</a>
+    <a href="/reviews/create" class="left">Create review</a>
+    <a href="/userProfile" class="left">My profile</a>
+    <a href="/logout" id="logout">Log out</a>
+    </div>
+  </nav>
+<br>
+<br>
+  
 {{#if userInSession}}
   <h2>Welcome, {{userInSession.username }}!</h2>
   <p>This is your profile page</p>
-  <p>Here are all your reviews:</p>
-{{!-- {{#each review}}
-  <p>{{title}} </p>
-  {{/each}} --}}
+  <p>Here are all your reviews:</p> 
+  <hr>
+{{#each review}}
+  <p>{{title}}</p>
+  <p>Movie reviewed: {{movieName}}</p>
+<p>Director: {{director}} </p>
+<p>Review: {{review}}</p>
+<p>Ranking: {{ranking}}/10 </p>
+<a href="/userProfile/{{_id}}/edit">Edit</a>
+<form action="/userProfile/{{_id}}/delete" method="POST">
+      <button>Delete</button>
+    </form>
+<hr>
+<br>
+
+  {{/each}}
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}

@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 // GET create a review
 
 router.get('/reviews/create', (req, res, next)=> {
-  if (!req.user) {
+  if (!req.session.currentUser) {
     res.redirect('/login'); // not logged-in
     return;
   }
@@ -25,14 +25,14 @@ router.get('/reviews/create', (req, res, next)=> {
 router.post('/reviews/create', (req, res, next) => {
   const {title, movieName, director, review, ranking} = req.body;
   Review.create({ title, movieName, director, review, ranking, user: req.session.currentUser['_id'] })
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/userProfile'))
     .catch(error => `Error while creating a new review: ${error}`);
 });
 
 // GET route to display all the reviews made 
 
 router.get('/reviews', (req, res, next) => {
-  if (!req.user) {
+  if (!req.session.currentUser) {
     res.redirect('/login'); // not logged-in
     return;
   }
@@ -50,6 +50,37 @@ router.get('/reviews', (req, res, next) => {
 }
 })
 
+// GET route to EDIT
 
+router.get('/userProfile/:id/edit', (req, res) => {
+  const { id } = req.params;
+ 
+  Review.findById(id)
+    .then(reviewToEdit => {
+      res.render('reviews/edit-review', reviewToEdit);
+    })
+    .catch(error => console.log(`Error while getting a single book for edit: ${error}`));
+});
+
+// POST route to EDIT
+
+router.post('/userProfile/:id/edit', (req, res) => {
+  const { id } = req.params;
+  const { title, movieName, director, review, ranking } = req.body;
+ 
+  Review.findByIdAndUpdate(id, { title, movieName, director, review, ranking }, { new: true })
+    .then(updatedReview => res.redirect('/userProfile'))
+    .catch(error => console.log(`Error while updating a single book: ${error}`));
+});
+
+// POST route to DELETE 
+
+router.post('/userProfile/:id/delete', (req, res) => {
+  const { id } = req.params;
+ 
+  Review.findByIdAndDelete(id)
+    .then(() => res.redirect('/userProfile'))
+    .catch(error => console.log(`Error while deleting a book: ${error}`));
+});
 
 module.exports = router;

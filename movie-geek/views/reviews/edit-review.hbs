@@ -1,0 +1,32 @@
+  <nav id="nav-bar">
+    <div class="nav">
+    <a href="/reviews">All reviews</a>
+    <a href="/reviews/create" class="left">Create review</a>
+    <a href="/userProfile" class="left">My profile</a>
+    <a href="/logout" id="logout">Log out</a>
+    </div>
+  </nav>
+<br>
+<br>
+  
+<h2>Edit your review</h2>
+<form action="/userProfile/{{_id}}/edit" method="post">
+ 
+  <label for="title-input">Title of the review</label> <br>
+  <input type="text" name="title" value="{{title}}" /> <br>
+ 
+  <label for="movieName-input">Name of the movie</label> <br>
+  <input type="text" name="movieName" value="{{movieName}}" /> <br>
+ 
+  <label for="director-input">Director</label> <br>
+  <input name="director" value="{{director}}"/>  <br>
+
+  <label for="review-input">Review</label><br>
+  <input name="review" type="text" value="{{review}}"/> <br>
+
+  <label for="ranking-input">Estimate the movie from 1 to 10</label><br>
+  <input name="ranking" type="number" value="{{ranking}}"> </input> <br>
+ 
+  <button type="submit">Save changes</button>
+
+</form>

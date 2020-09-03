@@ -14,16 +14,26 @@ router.get('/signup', (req, res) => res.render('auth/signup'));
 
 // router.get('/userProfile', (req, res) => res.render('user-profile', { userInSession: req.session.currentUser }));
 
-router.get('/userProfile', (req, res) => {
-  if (!req.user) {
+router.get('/userProfile',  (req, res) => {
+  if (!req.session.currentUser) {
     res.redirect('/login'); // not logged-in
     return;
   }
-const {_id} = req.params;
-User.findById({_id})
-.populate('Review')
+// console.log(req.session.currentUser["_id"])
+
+Review.find()
 .then ((allReviews) => {
-  res.render('user-profile', { userInSession: req.session.currentUser, reviews: allReviews})}
+  // console.log(allReviews)
+  const newArr = []
+  
+  allReviews.map(elem => {
+    if(elem.user[0] == req.session.currentUser["_id"]){
+     newArr.push(elem)
+    } 
+  })
+   console.log(newArr)
+   res.render('user-profile', {userInSession: req.session.currentUser, review: newArr})
+}
 )
 .catch(
   error => console.log(`Error while getting a review for edit: ${error}`)
@@ -34,6 +44,7 @@ User.findById({_id})
 // POST route to create a user in the database
 
 router.post('/signup', (req, res, next) => {
+  // console.log('SESSION =====> ', req.session);
   const { username, email, password } = req.body;
  
   if (!username || !email || !password) {
@@ -63,11 +74,11 @@ router.post('/signup', (req, res, next) => {
             console.log('Newly created user is: ', userFromDB);
             req.session.currentUser = userFromDB;
             console.log(req.session)
-            res.redirect('/userProfile');
+            res.redirect('/reviews');
           })
       .catch(error => {
         if (error instanceof mongoose.Error.ValidationError) {
-          res.status(500).render('auth/signup', { errorMessage: error.message });
+          res.status(500).render('auth/signup', {errorMessage: error.message});
         } else if (error.code === 11000) {
           res.status(500).render('auth/signup', {
              errorMessage: 'Username and email need to be unique. Either username or email is already used.'
@@ -77,8 +88,6 @@ router.post('/signup', (req, res, next) => {
         }
       });
   });
-
-
 
 //GET to login page
 
@@ -115,31 +124,12 @@ router.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 
- 
-  // if (username === '' || password === '') {
-  //   res.render('auth/login', {
-  //     errorMessage: 'Please enter both, email and password to login.'
-  //   });
-  //   return;
-  // }
- 
-  // User.findOne({ username })
-  //   .then(user => {
-  //     if (!user) {
-  //       res.render('auth/login', { errorMessage: 'User is not registered. Try with other username.' });
-  //       return;
-  //     } else if (bcryptjs.compareSync(password, user.passwordHash)) {
-        
-  //       res.render('user-profile', { user });
- 
-  //       req.session.currentUser = user;
-  //       res.redirect('/userProfile');
-  //     } else {
-  //       res.render('auth/login', { errorMessage: 'Incorrect password.' });
-  //     }
-  //   })
-  //   .catch(error => next(error));
 });
+
+
+
+
+
 
 // GET route for LOGOUT
 router.get('/logout', (req, res) => {

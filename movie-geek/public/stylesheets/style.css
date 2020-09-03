@@ -1,8 +1,114 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  padding: 0 auto;
+  margin: 0 auto;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; 
+}
 
-a {
-  color: #00B7FF; }
+#signup {
+  background-color: #FFBA33;
+  color:#19525B;
+  height: 100vh;
+}
+
+#signup h1 {
+  color:#19525B;
+  font-size: 96px;
+  font-weight: 700;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.signup-container {
+  background-color: #EEEEEE;
+  width: 30%;
+  height: 325px;
+  position: fixed; 
+  top: 40%;
+  left: 33%;
+  text-align: center;
+}
+
+.signup-container a {
+  text-decoration: none;
+  color: #19525B;
+  float: right;
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.signup-container h2 {
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+.signup-container input {
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid grey;
+}
+
+.signup-container button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #19525B;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px;
+  margin-top: 20px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+
+
+#nav-bar a {
+  color: #19525B; 
+  text-decoration: none;
+}
+
+
+#nav-bar {
+  background-color: #FFBA33;
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 20px;
+  padding-top: 20px;  
+}
+
+.nav {
+  width: 90%;
+  margin: 0 auto;
+  
+}
+
+#logout {
+  float: right;
+  padding: 0 auto;
+}
+
+.left {
+  padding-left:20px;
+}
+
+.review-container {
+  background-color: #EEEEEE;
+  width: 90%;
+  margin-bottom: 20px;
+  margin: 0 auto;
+}
+
+.review-container h3 {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 20px;
+}
 
 /*# sourceMappingURL=style.css.map */
