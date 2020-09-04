@@ -10,24 +10,30 @@
 <br>
   
 {{#if userInSession}}
+<div class="greeting">
   <h2>Welcome, {{userInSession.username }}!</h2>
   <p>This is your profile page</p>
-  <p>Here are all your reviews:</p> 
-  <hr>
+  <p>Below you can see all your reviews:</p> 
+  </div>
+
+
 {{#each review}}
-  <p>{{title}}</p>
-  <p>Movie reviewed: {{movieName}}</p>
-<p>Director: {{director}} </p>
-<p>Review: {{review}}</p>
-<p>Ranking: {{ranking}}/10 </p>
-<a href="/userProfile/{{_id}}/edit">Edit</a>
+<div class="review-container">
+  <h3>{{title}}</h3>
+  <a href="/userProfile/{{_id}}/edit">I want to edit this review</a>
+  <p><u> Movie reviewed</u>:{{movieName}}</p>
+<p><u>Director</u>: {{director}} </p>
+<p><u>Ranking</u>: {{ranking}}/10 </p>
+<p><u>You wrote about this movie</u>: <br><br> <i> "{{review}}"</i></p>
+
+
 <form action="/userProfile/{{_id}}/delete" method="POST">
       <button>Delete</button>
     </form>
-<hr>
 <br>
-
+</div>
   {{/each}}
+  
 {{else}}
   <p>Still no logged in user, sorry!</p>
 {{/if}}

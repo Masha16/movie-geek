@@ -6,28 +6,29 @@
     <a href="/logout" id="logout">Log out</a>
     </div>
   </nav>
-<br>
-<br>
+
+<div class="form-container">
 <h2>Create a new review</h2>
 
 <form action="/reviews/create" method="post">
  
-  <label for="title-input">Title of the review</label> <br>
+  <label for="title-input"></label> <br>
   <input type="text" placeholder="Title of review" name="title"> </input> <br>
  
-  <label for="movieName-input">Name of the movie</label><br>
+  <label for="movieName-input"></label><br>
   <input type="text" placeholder="Name of the movie" name="movieName"></input> <br>
  
-  <label for="director-input">Director</label><br>
+  <label for="director-input"></label><br>
   <input name="director" placeholder="Director"> </input>  <br>
 
-  <label for="review-input">Review</label><br>
-  <input name="review" type="text" placeholder="Write your review here..."> </input> <br>
+  <label for="review-input"></label><br>
+  <textarea name="review" type="text" placeholder="Write your review here..."></textarea> <br>
 
-    <label for="ranking-input">Estimate the movie from 1 to 10</label><br>
-  <input name="ranking" type="number"> </input> <br>
+  <label for="ranking-input"></label><br>
+  <input name="ranking" type="number" placeholder="Estimate the movie from 1 to 10" min="1" max="10"> </input> <br>
 
  
   <button type="submit">Create new review</button>
 
   </form>
+  </div>
