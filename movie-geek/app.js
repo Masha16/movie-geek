@@ -17,7 +17,7 @@ const User = require('./models/User.model')
 
 
 mongoose
-  .connect('mongodb://localhost/movie-geek', {
+  .connect('mongodb://heroku_hpl41k0l:hmncv06st1b6a0sh81ojatqheq@ds115045.mlab.com:15045/heroku_hpl41k0l', {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true})
