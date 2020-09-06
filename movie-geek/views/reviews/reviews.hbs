@@ -16,13 +16,13 @@
  <h3>{{title}}</h3>
 </div>
 <div>
-<p>Movie reviewed: {{movieName}}</p>
-<p>Director: {{director}} </p>
-<p>Ranking: {{ranking}}/10 </p>
+<p><u> Movie reviewed:</u> {{movieName}}</p>
+<p><u>Director:</u> {{director}} </p>
+<p><u>Ranking:</u> {{ranking}}/10 </p>
 {{#each user}}
-{{username}}
+<u> {{username}}</u> wrote: <br> <br>
 {{/each}}
- "{{review}}"
+ <i> "{{review}}"</i>
 </div>
 </div>
 {{/each}}

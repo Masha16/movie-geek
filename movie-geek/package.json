@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=movie-geek:* nodemon ./bin/www",
-    "dev-windows": "nodemon ./bin/www"
+    "start-dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
